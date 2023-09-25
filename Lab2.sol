@@ -2,6 +2,8 @@
 pragma solidity ^0.8.0;
 
 
+//will update this contract using delegratecall
+
 contract UpdateContract {
     uint256 public value;
 
@@ -12,8 +14,10 @@ contract UpdateContract {
 
 
 contract ContractChecker {
-    address public targetContract;
 
+    // address for targetcontract 	
+    address public targetContract;
+    //initilizing the value		
     constructor(address _target) {
         targetContract = _target;
     }
@@ -26,7 +30,7 @@ contract ContractChecker {
         }
         return codeSize > 0;
     }
-
+	// updateValue function in CallerContract uses delegatecall to call the setValue 
     function updateValue(uint256 _newValue) public {
         // Delegate call to the TargetContract's setValue function
         (bool success, ) = targetContract.delegatecall(abi.encodeWithSignature("setValue(uint256)", _newValue));
