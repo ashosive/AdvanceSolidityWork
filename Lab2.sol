@@ -22,14 +22,6 @@ contract ContractChecker {
         targetContract = _target;
     }
 
-
-    function CheckCode(address _contractAddress) public view returns (bool) {
-        uint256 codeSize;
-        assembly {
-            codeSize := extcodesize(_contractAddress)
-        }
-        return codeSize > 0;
-    }
 	// updateValue function in CallerContract uses delegatecall to call the setValue 
     function updateValue(uint256 _newValue) public {
         // Delegate call to the TargetContract's setValue function
